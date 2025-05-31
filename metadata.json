@@ -1,0 +1,5 @@
+{
+  "name": "DevAI Pro Assistant",
+  "description": "An AI-powered assistant tailored for developers, offering expertise in various technical domains. Users can interact with the AI, ask questions, and get assistance with coding, blockchain, web development, and more. The application supports text and image-based queries.",
+  "requestFramePermissions": []
+}
