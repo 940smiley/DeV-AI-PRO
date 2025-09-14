@@ -6,12 +6,7 @@ const ApiKeyStatusIndicator: React.FC = () => {
   const [apiKeyIsSet, setApiKeyIsSet] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // This check happens on the client-side and process.env might not be directly available
-    // as it is during build time or on a Node.js server.
-    // For a pure client-side app without a build process that injects env vars,
-    // this check is more of a placeholder or would require a different mechanism.
-    // However, per instructions, we assume process.env.API_KEY is accessible.
-    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
+    if (typeof process !== 'undefined' && process.env && (process.env.API_KEY || process.env.GEMINI_API_KEY)) {
       setApiKeyIsSet(true);
     } else {
       setApiKeyIsSet(false);

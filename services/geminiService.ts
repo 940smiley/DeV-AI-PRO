@@ -7,11 +7,12 @@ let ai: GoogleGenAI | null = null;
 
 const getGoogleAI = (): GoogleGenAI => {
   if (!ai) {
-    if (!process.env.API_KEY) {
+    const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+    if (!apiKey) {
       console.error("API_KEY environment variable is not set.");
       throw new Error("API_KEY_MISSING");
     }
-    ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    ai = new GoogleGenAI({ apiKey });
   }
   return ai;
 };
@@ -49,16 +50,15 @@ export const generateDeveloperResponse = async (params: GenerateDeveloperRespons
       contents: contentRequest,
       config: {
         systemInstruction: systemInstruction,
-        // Add other config like temperature, topK etc. if needed
       }
     });
 
-    if (response && response.text) {
-      return response.text;
-    } else {
-      console.error("Gemini API response missing text:", response);
-      return "The AI returned an empty or invalid response. Please try again.";
+    const text = (response as any)?.text || (response as any)?.candidates?.[0]?.content?.parts?.map((p: any) => p.text).filter(Boolean).join("\n");
+    if (text && typeof text === 'string') {
+      return text;
     }
+    console.error("Gemini API response missing text:", response);
+    return "The AI returned an empty or invalid response. Please try again.";
   } catch (error: any) {
     console.error("Error calling Gemini API:", error);
     if (error.message === "API_KEY_MISSING") {
