@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ExpertiseArea, ExpertiseAreaId } from '../types';
+import { ExpertiseAreaId } from '../types';
 import { EXPERTISE_AREAS } from '../constants.tsx';
 
 interface SidebarProps {
