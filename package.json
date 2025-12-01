@@ -10,9 +10,8 @@
   },
   "dependencies": {
     "react": "^19.1.0",
-    "react-dom/client": "18.3.1",
-    "@google/genai": "0.14.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "@google/genai": "0.14.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
