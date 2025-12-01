@@ -50,9 +50,31 @@ export const generateDeveloperResponse = async (params: GenerateDeveloperRespons
       contents: contentRequest,
       config: {
         systemInstruction: systemInstruction,
-      }
-    });
+interface GeminiResponse {
+  text?: string;
+  candidates?: Array<{
+    content?: {
+      parts?: Array<{ text: string }>;
+    };
+  }>;
+}
 
+const extractResponseText = (response: GeminiResponse): string => {
+  if (response.text) {
+    return response.text;
+  }
+  
+  const candidateText = response.candidates?.[0]?.content?.parts
+    ?.map(p => p.text)
+    .filter(Boolean)
+    .join("\n");
+    
+  if (candidateText) {
+    return candidateText;
+  }
+  
+  throw new Error("Invalid response format from Gemini API");
+};
     const text = (response as any)?.text || (response as any)?.candidates?.[0]?.content?.parts?.map((p: any) => p.text).filter(Boolean).join("\n");
     if (text && typeof text === 'string') {
       return text;
