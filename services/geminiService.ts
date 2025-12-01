@@ -50,41 +50,17 @@ export const generateDeveloperResponse = async (params: GenerateDeveloperRespons
       contents: contentRequest,
       config: {
         systemInstruction: systemInstruction,
-interface GeminiResponse {
-  text?: string;
-  candidates?: Array<{
-    content?: {
-      parts?: Array<{ text: string }>;
-    };
-  }>;
-}
+      }
+    });
 
-const extractResponseText = (response: GeminiResponse): string => {
-  if (response.text) {
-    return response.text;
-  }
-  
-  const candidateText = response.candidates?.[0]?.content?.parts
-    ?.map(p => p.text)
-    .filter(Boolean)
-    .join("\n");
-    
-  if (candidateText) {
-    return candidateText;
-  }
-  
-  throw new Error("Invalid response format from Gemini API");
-};
-    const text = (response as any)?.text || (response as any)?.candidates?.[0]?.content?.parts?.map((p: any) => p.text).filter(Boolean).join("\n");
-    if (text && typeof text === 'string') {
-      return text;
-    }
-    console.error("Gemini API response missing text:", response);
-    return "The AI returned an empty or invalid response. Please try again.";
+    return extractResponseText(response as GeminiResponse);
   } catch (error: any) {
     console.error("Error calling Gemini API:", error);
     if (error.message === "API_KEY_MISSING") {
-        return "Gemini API Key is not configured. Please ensure the API_KEY environment variable is set.";
+      return "Gemini API Key is not configured. Please ensure the API_KEY environment variable is set.";
+    }
+    if (error.message.includes("Missing required API key")) {
+      return error.message;
     }
     // It's good practice to check for specific Gemini errors if the SDK provides them
     // For now, a general message.
