@@ -7,7 +7,17 @@ let ai: GoogleGenAI | null = null;
 
 const getGoogleAI = (): GoogleGenAI => {
   if (!ai) {
+const getGoogleAI = (): GoogleGenAI => {
+  if (!ai) {
     const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.error("API_KEY or GEMINI_API_KEY environment variable is not set.");
+      throw new Error("API_KEY_MISSING");
+    }
+    ai = new GoogleGenAI({ apiKey });
+  }
+  return ai;
+};
     if (!apiKey) {
       console.error("API_KEY environment variable is not set.");
       throw new Error("API_KEY_MISSING");
