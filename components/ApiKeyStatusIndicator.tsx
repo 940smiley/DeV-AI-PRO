@@ -6,6 +6,11 @@ const ApiKeyStatusIndicator: React.FC = () => {
   const [apiKeyIsSet, setApiKeyIsSet] = useState<boolean | null>(null);
 
   useEffect(() => {
+    if (typeof process !== 'undefined' && process.env && (process.env.API_KEY || process.env.GEMINI_API_KEY)) {
+      setApiKeyIsSet(true);
+    } else {
+      setApiKeyIsSet(false);
+    }
     // Vite replaces process.env.API_KEY at build time via define in vite.config.ts
     setApiKeyIsSet(Boolean(process.env.API_KEY));
   }, []);

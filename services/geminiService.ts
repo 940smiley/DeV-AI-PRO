@@ -7,11 +7,22 @@ let ai: GoogleGenAI | null = null;
 
 const getGoogleAI = (): GoogleGenAI => {
   if (!ai) {
-    if (!process.env.API_KEY) {
+const getGoogleAI = (): GoogleGenAI => {
+  if (!ai) {
+    const apiKey = process.env.API_KEY || process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.error("API_KEY or GEMINI_API_KEY environment variable is not set.");
+      throw new Error("API_KEY_MISSING");
+    }
+    ai = new GoogleGenAI({ apiKey });
+  }
+  return ai;
+};
+    if (!apiKey) {
       console.error("API_KEY environment variable is not set.");
       throw new Error("API_KEY_MISSING");
     }
-    ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    ai = new GoogleGenAI({ apiKey });
   }
   return ai;
 };
@@ -46,23 +57,44 @@ export const generateDeveloperResponse = async (params: GenerateDeveloperRespons
 
     const response: GenerateContentResponse = await googleAI.models.generateContent({
       model: GEMINI_MODEL_NAME,
-      contents: contentRequest,
+try {
+      const response: GenerateContentResponse = await googleAI.models.generateContent({
+        model: GEMINI_MODEL_NAME,
+        contents: contentRequest,
+        config: {
+          systemInstruction: systemInstruction,
+        }
+      });
+      // Use the actual SDK response structure. Assuming `response.text` exists based on the prior logic.
+      if (response && response.text) {
+        return response.text;
+      } else {
+        console.error("Gemini API response missing text:", response);
+        return "The AI returned an empty or invalid response. Please try again.";
+      }
+    } catch (error: any) {
+      console.error("Error calling Gemini API:", error);
+      if (error.message === "API_KEY_MISSING") {
+        return "Gemini API Key is not configured. Please ensure the API_KEY environment variable is set.";
+      }
+      if (error.message.includes("Missing required API key")) {
+        return error.message;
+      }
+      return `${GEMINI_API_ERROR_MESSAGE} Details: ${error.message || DEFAULT_ERROR_MESSAGE}`;
+    }
       config: {
         systemInstruction: systemInstruction,
-        // Add other config like temperature, topK etc. if needed
       }
     });
 
-    if (response && response.text) {
-      return response.text;
-    } else {
-      console.error("Gemini API response missing text:", response);
-      return "The AI returned an empty or invalid response. Please try again.";
-    }
+    return extractResponseText(response as GeminiResponse);
   } catch (error: any) {
     console.error("Error calling Gemini API:", error);
     if (error.message === "API_KEY_MISSING") {
-        return "Gemini API Key is not configured. Please ensure the API_KEY environment variable is set.";
+      return "Gemini API Key is not configured. Please ensure the API_KEY environment variable is set.";
+    }
+    if (error.message.includes("Missing required API key")) {
+      return error.message;
     }
     // It's good practice to check for specific Gemini errors if the SDK provides them
     // For now, a general message.

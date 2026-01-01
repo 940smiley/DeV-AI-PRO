@@ -161,12 +161,7 @@ const LightBulbIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
   </svg>
 );
 
-const GlobeAltIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25ZM8.625 7.5a.75.75 0 0 0-1.5 0v1.558c-.369.08-.72.19-1.048.333a.75.75 0 1 0 .508 1.433A5.992 5.992 0 0 1 7.5 10.51V12a.75.75 0 0 0 1.5 0v-1.558c.369-.08.72-.19 1.048-.333a.75.75 0 0 0-.508-1.433A5.992 5.992 0 0 1 8.625 8.99V7.5Zm7.252 1.716a.75.75 0 0 0-.508-1.433 5.99 5.99 0 0 0-1.12 4.158.75.75 0 1 0 1.433.508 4.493 4.493 0 0 1 .825-3.233Z" clipRule="evenodd" />
-    <path d="M12 7.341a5.992 5.992 0 0 0-4.545 2.356.75.75 0 0 0 1.194.912 4.493 4.493 0 0 1 6.703 0 .75.75 0 0 0 1.194-.912A5.992 5.992 0 0 0 12 7.341Zm1.875 6.916a.75.75 0 0 0-1.06-.024l-1.793 1.598v1.401a.75.75 0 0 0 1.5 0v-.928l1.228-1.092a.75.75 0 0 0 .125-1.055Z" />
-  </svg>
-);
+// GlobeAltIcon removed (unused)
 
 const LinkIcon = (props: React.SVGProps<SVGSVGElement>): JSX.Element => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" {...props}>

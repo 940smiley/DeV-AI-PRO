@@ -9,12 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/genai": "0.14.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "@google/genai": "0.14.0"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
     "typescript": "~5.7.2",
     "vite": "^6.2.0"
   }

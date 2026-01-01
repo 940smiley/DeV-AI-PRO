@@ -1,3 +1,7 @@
+/* Minimal stylesheet to satisfy reference; Tailwind is loaded via CDN. */
+html, body, #root {
+  height: 100%;
+}
 /* Minimal styles; Tailwind is loaded via CDN in index.html */
 html, body, #root {
   height: 100%;
