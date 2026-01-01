@@ -1,1 +1,2 @@
-// Intentionally left blank. This file was unused; keeping as a stub to avoid broken imports if any linger.
+// Re-export all exports from the main constants file.
+export * from './constants.tsx';
