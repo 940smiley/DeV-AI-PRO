@@ -11,6 +11,8 @@ const ApiKeyStatusIndicator: React.FC = () => {
     } else {
       setApiKeyIsSet(false);
     }
+    // Vite replaces process.env.API_KEY at build time via define in vite.config.ts
+    setApiKeyIsSet(Boolean(process.env.API_KEY));
   }, []);
 
   if (apiKeyIsSet === null) {
