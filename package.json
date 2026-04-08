@@ -10,7 +10,7 @@
     "pr:automation": "node scripts/pr-automation.mjs"
   },
   "dependencies": {
-    "@google/genai": "1.47.0",
+    "@google/genai": "1.49.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
