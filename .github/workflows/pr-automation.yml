@@ -2,8 +2,17 @@ name: PR and Bug Automation
 
 on:
   workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Run without making changes
+        required: false
+        default: 'false'
+      target_repositories:
+        description: Comma-separated owner/name repositories. Defaults to current repository.
+        required: false
+        default: ''
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '*/15 * * * *'
 
 permissions:
   contents: write
@@ -11,9 +20,14 @@ permissions:
   issues: write
   checks: read
 
+concurrency:
+  group: pr-automation-${{ github.repository }}
+  cancel-in-progress: true
+
 jobs:
   process-open-prs:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -22,10 +36,19 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Run automation loop
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          TARGET_REPOSITORIES: ${{ inputs.target_repositories }}
+          DRY_RUN: ${{ inputs.dry_run }}
           AUTO_MERGE_LABEL: automerge
+          AUTO_MERGE_METHOD: squash
+          GITHUB_API_MAX_RETRIES: '4'
+          GITHUB_API_RETRY_DELAY_MS: '1500'
         run: node scripts/pr-automation.mjs
