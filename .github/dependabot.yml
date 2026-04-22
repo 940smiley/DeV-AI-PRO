@@ -11,6 +11,11 @@ updates:
     commit-message:
       prefix: chore
       include: scope
+    groups:
+      npm-production:
+        dependency-type: production
+      npm-development:
+        dependency-type: development
 
   - package-ecosystem: github-actions
     directory: '/'
@@ -18,3 +23,4 @@ updates:
       interval: weekly
     labels:
       - dependencies
+      - automerge
