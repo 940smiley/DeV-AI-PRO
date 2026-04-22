@@ -39,7 +39,7 @@ jobs:
         run: npm run check
 
       - name: Create repair PR if needed
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           commit-message: 'chore: automated self-repair updates'
           title: 'chore: automated self-repair updates'
