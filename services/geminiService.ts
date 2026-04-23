@@ -82,3 +82,4 @@ export const generateDeveloperResponse = async (
     return `${GEMINI_API_ERROR_MESSAGE} Details: ${error?.message || DEFAULT_ERROR_MESSAGE}`;
   }
 };
+

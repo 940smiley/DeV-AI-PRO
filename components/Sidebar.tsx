@@ -15,7 +15,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentExpertise, onExpertiseChange, 
     <>
       {/* Overlay for mobile */}
       {!isCollapsed && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
           onClick={toggleSidebar}
         ></div>
@@ -37,12 +37,12 @@ const Sidebar: React.FC<SidebarProps> = ({ currentExpertise, onExpertiseChange, 
                           ${isCollapsed && 'lg:justify-center'}`}
             >
               {React.cloneElement(area.icon, { className: `w-5 h-5 ${!isCollapsed ? 'mr-3' : ''}` })}
-              {!isCollapsed && <span className="ml-0">{area.name}</span>} 
+              {!isCollapsed && <span className="ml-0">{area.name}</span>}
               {isCollapsed && <span className="sr-only">{area.name}</span>}
             </button>
           ))}
         </nav>
-        
+
         <div className={`p-4 border-t border-gray-700 ${isCollapsed && 'lg:hidden'}`}>
           {!isCollapsed && (
             <p className="text-xs text-gray-500">

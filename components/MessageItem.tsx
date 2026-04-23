@@ -14,9 +14,9 @@ const UserIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
 const AiIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
   const { className, ...restProps } = props;
   return (
-    <GitHubIcon 
-      className={`${className || ''} transform scale-x-[-1]`} 
-      {...restProps} 
+    <GitHubIcon
+      className={`${className || ''} transform scale-x-[-1]`}
+      {...restProps}
     />
   );
 };
@@ -39,7 +39,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ message }) => {
 
   const alignmentClass = isUser ? 'justify-end' : 'justify-start';
   const bubbleColorClass = isUser ? 'bg-sky-600 text-white' : isError ? 'bg-red-700 text-white' : 'bg-gray-700 text-gray-200';
-  
+
   const Icon = isUser ? UserIcon : isError ? ErrorIcon : AiIcon;
 
   // Basic markdown-like code block styling
@@ -53,7 +53,7 @@ const MessageItem: React.FC<MessageItemProps> = ({ message }) => {
         const firstLineEndIndex = codeContent.indexOf('\n');
         let language = '';
         let actualCode = codeContent;
-        
+
         if (firstLineEndIndex !== -1) {
             const firstLine = codeContent.substring(0, firstLineEndIndex).trim();
             // A simple heuristic for language identifiers (e.g., python, javascript)

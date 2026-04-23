@@ -35,7 +35,7 @@ const App: React.FC = () => {
     };
     window.addEventListener('resize', handleResize);
     // Initial check
-    handleResize(); 
+    handleResize();
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -61,7 +61,7 @@ const App: React.FC = () => {
         imageBase64: uploadedImage?.base64,
         mimeType: uploadedImage?.mimeType,
       });
-      
+
       const aiMessage: Message = {
         id: `ai-${Date.now()}`,
         sender: SenderType.AI,
@@ -99,14 +99,14 @@ const App: React.FC = () => {
       setIsSidebarCollapsed(true);
     }
   };
-  
+
   const currentExpertiseName = EXPERTISE_AREAS.find(e => e.id === currentExpertise)?.name || 'AI Assistant';
 
   return (
     <div className="flex h-screen max-h-screen overflow-hidden bg-gray-900">
       <ApiKeyStatusIndicator />
-      <Sidebar 
-        currentExpertise={currentExpertise} 
+      <Sidebar
+        currentExpertise={currentExpertise}
         onExpertiseChange={handleExpertiseChange}
         isCollapsed={isSidebarCollapsed}
         toggleSidebar={toggleSidebar}

@@ -114,3 +114,4 @@ export const SYSTEM_INSTRUCTIONS: Record<ExpertiseAreaId, string> = {
   [ExpertiseAreaId.AUTOMATION_OPTIONS]: 'You are an automation engineer. Suggest CI/CD, schedulers, IaC, and scripting. Compare trade-offs briefly and provide minimal reproducible scripts.',
   [ExpertiseAreaId.BOT_SWARM_PRODUCTION]: 'You design production agent swarms. Focus on orchestration, retries, circuit breakers, observability, and cost control.',
 };
+

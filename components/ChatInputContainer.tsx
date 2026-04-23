@@ -31,7 +31,7 @@ const ChatInputContainer: React.FC<ChatInputContainerProps> = ({ onSendMessage, 
   const handleImageUpload = (image: UploadedImage | null) => {
     setUploadedImage(image);
   };
-  
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
@@ -66,3 +66,4 @@ const ChatInputContainer: React.FC<ChatInputContainerProps> = ({ onSendMessage, 
 };
 
 export default ChatInputContainer;
+
