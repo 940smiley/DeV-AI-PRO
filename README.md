@@ -1,52 +1,59 @@
-# Run and deploy your AI Studio app
+# DeV-AI-PRO
 
-This contains everything you need to run your app locally.
+**DeV-AI-PRO** is an advanced AI-powered development assistant designed to streamline repository management, automate pull request reviews, and triage bug reports. It integrates with Google Gemini to provide intelligent insights and automated fixes for common development bottlenecks.
 
-## Run Locally
+## Core Features
 
-**Prerequisites:** Node.js
+- **PR Automation:** Automatically labels PRs by urgency, detects merge conflicts, and summarizes CI failures.
+- **Bug Triage:** Intelligent classification and severity labeling for incoming issues.
+- **Self-Repair:** Automated workflows that attempt to fix failing checks and refresh dependencies.
+- **Multi-Repo Support:** Capability to process multiple repositories simultaneously.
+- **AI Integration:** Powered by Google Gemini for high-context code analysis and recommendations.
 
+## Tech Stack
+
+- **Framework:** React + Vite
+- **AI Engine:** Google Gemini API
+- **Automation:** GitHub Actions, Node.js scripts
+- **Language:** TypeScript
+
+## Quick Start
+
+### Prerequisites
+- Node.js (v18+)
+- GitHub Token (with repository write permissions)
+- Gemini API Key
+
+### Installation
 1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in `.env.local` to your Gemini API key.
-3. Run the app:
-   `npm run dev`
+   ```bash
+   npm install
+   ```
+2. Configure environment:
+   Create a `.env.local` file and set:
+   ```env
+   GEMINI_API_KEY=your_gemini_key
+   GITHUB_TOKEN=your_github_token
+   GITHUB_REPOSITORY=owner/repo
+   ```
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-## Validation and build
+## Automation Commands
+- `npm run pr:automation` – Run the local automation engine.
+- `npm run typecheck` – Validate TypeScript types.
+- `npm run build` – Create a production build.
 
-- Type-check only: `npm run typecheck`
-- Full validation (typecheck + production build): `npm run check`
-- Production build only: `npm run build`
+## TODO List
 
-## PR and bug automation
+- [ ] **Advanced Reviews:** Enhance the AI review logic to provide deeper architectural feedback.
+- [ ] **Dashboard UI:** Improve the ApiKeyStatusIndicator and ChatInputContainer for better user experience.
+- [ ] **Custom Rules:** Implement a configuration system for user-defined automation rules.
+- [ ] **Logging:** Add centralized logging for automation runs to track AI decision-making.
+- [ ] **Integration:** Support for additional AI providers (OpenAI, Anthropic).
 
-This repository includes automation to process open pull requests and bug issues.
+## License
 
-- Scheduled workflow: `.github/workflows/pr-automation.yml` (runs every 15 minutes)
-- CI workflow: `.github/workflows/ci.yml` (runs on push + pull requests)
-- Self-repair workflow: `.github/workflows/self-repair.yml` (runs every 6 hours)
-- Dependabot updates: `.github/dependabot.yml`
-- Local automation runner: `npm run pr:automation`
-
-### Automation features
-
-- Processes open PRs and labels by urgency (`priority:high|medium|low`).
-- Detects merge conflicts and failing checks (`needs:conflict-resolution`, `needs:ci-fix`).
-- Posts a one-time CI summary comment on failing PRs.
-- Auto-merges merge-ready PRs when `automerge` label is present (or `AUTO_MERGE_ALL=true`).
-- Triages bug issues with `type:bug` + severity labels.
-- Supports multi-repository processing via `TARGET_REPOSITORIES=owner/repo,owner/repo2`.
-
-### Required environment variables for local execution
-
-- `GITHUB_TOKEN`: token with repository write permissions
-- `GITHUB_REPOSITORY`: repository in `owner/name` format
-
-Optional:
-
-- `TARGET_REPOSITORIES`: comma-separated repositories to process
-- `DRY_RUN=true` to report actions without mutating
-- `AUTO_MERGE_LABEL` to override the merge label (default `automerge`)
-- `AUTO_MERGE_ALL=true` to merge all merge-ready PRs
-- `AUTO_MERGE_METHOD=squash|merge|rebase` (default `squash`)
-- `GITHUB_API_MAX_RETRIES` and `GITHUB_API_RETRY_DELAY_MS` for API retry behavior
+MIT License
