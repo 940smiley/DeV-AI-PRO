@@ -12,7 +12,7 @@
     "check": "npm run typecheck && npm run build"
   },
   "dependencies": {
-    "@google/genai": "2.30.0",
+    "@google/genai": "2.31.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"
   },
